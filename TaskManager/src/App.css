@@ -1,0 +1,163 @@
+.counter {
+  font-size: clamp(14px, 1.2vw, 16px);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  margin-bottom: 24px;
+}
+
+.counter:hover {
+  border-color: var(--accent-border);
+}
+
+.counter:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 🔥 FIXED HERO */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 100%;
+}
+
+.hero .base {
+  width: clamp(120px, 25vw, 170px);
+}
+
+.hero .framework {
+  height: clamp(20px, 3vw, 28px);
+  transform: rotateZ(300deg);
+}
+
+.hero .vite {
+  height: clamp(18px, 2.5vw, 26px);
+  transform: rotateZ(300deg);
+}
+
+/* CENTER */
+#center {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 32px 20px;
+}
+
+@media (max-width: 600px) {
+  #center {
+    gap: 16px;
+    padding: 20px 14px;
+  }
+}
+
+/* NEXT STEPS */
+#next-steps {
+  display: flex;
+  border-top: 1px solid var(--border);
+}
+
+#next-steps > div {
+  flex: 1;
+  padding: 32px;
+}
+
+@media (max-width: 768px) {
+  #next-steps {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #next-steps > div {
+    padding: 20px;
+  }
+}
+
+#docs {
+  border-right: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  #docs {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+/* LIST */
+#next-steps ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+#next-steps ul li {
+  flex: 1 1 calc(50% - 8px);
+}
+
+#next-steps ul a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  width: 100%;
+  border-radius: 6px;
+  text-decoration: none;
+  background: var(--social-bg);
+  color: var(--text-h);
+}
+
+@media (max-width: 500px) {
+  #next-steps ul li {
+    flex: 1 1 100%;
+  }
+}
+
+/* SPACER */
+#spacer {
+  height: 60px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  #spacer {
+    height: 30px;
+  }
+}
+
+/* TICKS */
+.ticks {
+  position: relative;
+  width: 100%;
+}
+
+.ticks::before,
+.ticks::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  border: 5px solid transparent;
+}
+
+.ticks::before {
+  left: 0;
+  border-left-color: var(--border);
+}
+
+.ticks::after {
+  right: 0;
+  border-right-color: var(--border);
+}
