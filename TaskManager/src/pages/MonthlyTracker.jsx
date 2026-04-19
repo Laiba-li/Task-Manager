@@ -2,32 +2,23 @@ import { useTasks } from "../context/TaskContext";
 import LineChart from "../components/LineChart";
 import BarChart from "../components/BarChart";
 
-const monthlyBarData = [
-    { week: "Week 1", tasks: 12 },
-    { week: "Week 2", tasks: 5 },
-    { week: "Week 3", tasks: 14 },
-    { week: "Week 4", tasks: 18 },
-    { week: "Week 3", tasks: 22 },
-    { week: "Week 4", tasks: 28 },
-];
-
 export default function MonthlyTracker() {
-    const { monthlyData } = useTasks();
-    const monthlyCompleted = 70;
-    const monthlyProgress = 88;
+    const { monthlyData, completedTasks, totalTasks } = useTasks();
+
+    const monthlyProgress = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
 
     return (
         <div className="flex flex-col gap-6">
             {/* Weekly line chart */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-5">Weekly Tracker</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-5">Weekly Breakdown</h2>
                 <LineChart data={monthlyData} xKey="week" yKey="tasks" height={220} />
             </div>
 
-            {/* Monthly Bar Chart */}
+            {/* Monthly Bar Chart — uses real monthlyData */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-5">Monthly Tracker</h2>
-                <BarChart data={monthlyBarData} xKey="week" yKey="tasks" height={200} />
+                <BarChart data={monthlyData} xKey="week" yKey="tasks" height={200} />
             </div>
 
             {/* Summary */}
@@ -36,7 +27,7 @@ export default function MonthlyTracker() {
                     <div className="flex-1">
                         <div className="flex items-center gap-2 mb-4">
                             <p className="text-sm text-gray-500 dark:text-gray-400">Tasks Completed:</p>
-                            <p className="text-2xl font-bold text-gray-900 dark:text-white">{monthlyCompleted}</p>
+                            <p className="text-2xl font-bold text-gray-900 dark:text-white">{completedTasks}</p>
                             <span className="text-green-500 text-lg">📈</span>
                         </div>
                         <div>
