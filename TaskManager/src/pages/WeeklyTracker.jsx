@@ -2,9 +2,11 @@ import { useTasks } from "../context/TaskContext";
 import BarChart from "../components/BarChart";
 
 export default function WeeklyTracker() {
-    const { weeklyData, completedTasks, weeklyProgress, studyStreak } = useTasks();
-    const monthlyCompleted = 70;
-    const monthlyProgress = 58;
+    const { weeklyData, monthlyData, completedTasks, totalTasks, weeklyProgress, studyStreak } = useTasks();
+
+    const monthlyProgress = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
+    const bestWeek = monthlyData.length > 0 ? Math.max(...monthlyData.map(w => w.tasks)) : 0;
+    const weeklyCompleted = weeklyData.reduce((sum, d) => sum + d.tasks, 0);
 
     return (
         <div className="flex flex-col gap-6">
@@ -18,13 +20,11 @@ export default function WeeklyTracker() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <InfoCard
                     label="Study Streak"
-                    value={`${studyStreak} Days 🔥`}
-                    onDismiss={() => { }}
+                    value={`${studyStreak} Day${studyStreak !== 1 ? "s" : ""} 🔥`}
                 />
                 <InfoCard
-                    label="Tasks Completed this week"
-                    value={`${completedTasks * 4} this week`}
-                    onDismiss={() => { }}
+                    label="Tasks This Week"
+                    value={`${weeklyCompleted} task${weeklyCompleted !== 1 ? "s" : ""}`}
                 />
                 <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 shadow-sm">
                     <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Weekly Progress</p>
@@ -44,10 +44,12 @@ export default function WeeklyTracker() {
             <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm">
                 <div className="flex flex-col md:flex-row md:items-center gap-6">
                     <div className="flex-1 grid grid-cols-2 gap-4">
-                        <SummaryItem label="Tasks Completed" value={monthlyCompleted} />
-                        <SummaryItem label="Best Week" value="30 Tasks" />
+                        <SummaryItem label="Tasks Completed" value={completedTasks} />
+                        <SummaryItem label="Best Week" value={`${bestWeek} Task${bestWeek !== 1 ? "s" : ""}`} />
                         <div className="col-span-2">
-                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Monthly Progress: <span className="text-green-500 font-semibold">{monthlyProgress}%</span></p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                                Monthly Progress: <span className="text-green-500 font-semibold">{monthlyProgress}%</span>
+                            </p>
                             <div className="flex items-center gap-3">
                                 <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-3">
                                     <div
@@ -60,8 +62,7 @@ export default function WeeklyTracker() {
                         </div>
                     </div>
 
-                    {/* Donut */}
-                    <DonutChart percent={75} label="Completed" />
+                    <DonutChart percent={weeklyProgress} label="Weekly" />
                 </div>
             </div>
         </div>
@@ -75,9 +76,6 @@ function InfoCard({ label, value }) {
                 <p className="text-xs text-gray-400 dark:text-gray-500 mb-1">{label}</p>
                 <p className="text-base font-bold text-gray-800 dark:text-white">{value}</p>
             </div>
-            <button className="text-xs px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                Dismiss
-            </button>
         </div>
     );
 }
