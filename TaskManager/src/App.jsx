@@ -25,13 +25,13 @@ export default function App() {
         <div className="min-h-screen bg-gray-100 dark:bg-gray-950 transition-colors duration-300 font-sans">
 
           {/* Header */}
-          <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm">
+          <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm transition-colors duration-300">
 
             {/* Top Row */}
             <div className="relative px-4 py-3 flex items-center justify-between">
 
               {/* LEFT: Title */}
-              <h1 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white tracking-tight whitespace-nowrap">
+              <h1 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white tracking-tight whitespace-nowrap transition-colors duration-300">
                 📚 Smart Student Dashboard
               </h1>
 
@@ -98,7 +98,7 @@ export default function App() {
                 menuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
               }`}
             >
-              <nav className="flex flex-col gap-1 px-4 pt-2 pb-3 border-t border-gray-100 dark:border-gray-800">
+              <nav className="flex flex-col gap-1 px-4 pt-2 pb-3 border-t border-gray-100 dark:border-gray-800 transition-colors duration-300">
                 {navItems.map(({ id, label }) => (
                   <button
                     key={id}
@@ -121,7 +121,7 @@ export default function App() {
           </header>
 
           {/* Page Content */}
-          <main className="max-w-6xl mx-auto px-4 py-6">
+          <main className="max-w-6xl mx-auto px-4 py-6 transition-colors duration-300">
             {activePage === "dashboard" && <Dashboard />}
             {activePage === "tasks" && <Tasks />}
             {activePage === "weekly" && <WeeklyTracker />}
